@@ -295,8 +295,8 @@ game_speed = 6.0
 boden_image = load_scaled_image('boden.png', 3)
 
 # Spielfigur
-player_image_down = load_scaled_image('figur_12x14.png', 4)
-player_image_up = load_scaled_image('figur_12x14_reverse.png', 4)
+player_image_down = load_scaled_image('Figur_12x14.png', 4)
+player_image_up = load_scaled_image('Figur_12x14_reverse.png', 4)
 player_size = player_image_down.get_rect().size
 player_pos = [50, HEIGHT - player_size[1] - 40]
 current_image = player_image_down
