@@ -12,9 +12,10 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ASSETS_DIR = os.path.join(BASE_DIR, '..', 'assets')
 DATA_DIR = os.path.join(BASE_DIR, '..', 'data')
 
-# JSONBin.io Konfiguration
-JSONBIN_API_KEY = "$2a$10$L21HpgXJpYzX5jNC7ufMvOR3ZcN.2Of/AOOCyg7LyASyZm4UXFyGS"
-BIN_ID = "688df978ae596e708fbfff3f"
+
+
+JSONBIN_API_KEY = "platzhalter"
+BIN_ID = "platzhalter"
 JSONBIN_URL = f"https://api.jsonbin.io/v3/b/{BIN_ID}"
 
 # Initialisierung
