@@ -37,11 +37,11 @@ Sammle Münzen und Power-ups, um deinen Highscore zu verbessern und in der globa
    python main.py
    ```
 
-## 🖼️ Screenshots  
 
-![Screenshot 1](https://github.com/user-attachments/assets/5ffc573d-382f-45b4-8f9c-36829f98adab)  
-![Screenshot 2](https://github.com/user-attachments/assets/efbd3cc3-a831-45e4-bece-2c707733d4bf)  
 
----
+https://github.com/user-attachments/assets/6fc3348e-7166-4d98-9f51-afe984b73e16
 
-✦ Viel Spaß beim Spielen! 🚀  
+
+
+https://github.com/user-attachments/assets/d847050a-d423-48e5-b1af-6f40355375e7
+
