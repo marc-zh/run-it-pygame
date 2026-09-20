@@ -1,47 +1,29 @@
-# Run-It  
+# Run-It
 
-Ein einfaches Endlos-Runner-Spiel, das mit **Pygame** erstellt wurde.  
+8-Bit Gravity-Flip-Runner, browserfertig für Handy und PC. Vite + Canvas, Shop, lokale Rangliste.
 
-## 🎮 Spielprinzip  
+## Spielen
 
-Steuere die Figur mit der **Leertaste**, um die Schwerkraft umzukehren und den entgegenkommenden Hindernissen auszuweichen.  
-Sammle Münzen und Power-ups, um deinen Highscore zu verbessern und in der globalen Rangliste aufzusteigen.  
+```bash
+npm install
+npm run dev
+```
 
-## ⚙️ Installation & Ausführung  
+URL im Browser öffnen (Handy: Network-Adresse aus dem Terminal, Hochkant). Tippen oder Leertaste.
 
-1. **Repository klonen**  
-   ```bash
-   git clone <repository-url>
-   cd <repository-folder>
-   ```
+```bash
+npm run build
+npm run preview
+```
 
-2. **Abhängigkeiten installieren**  
-   Es wird empfohlen, eine virtuelle Umgebung zu verwenden.  
+## Spielprinzip
 
-   ```bash
-   # Virtuelle Umgebung erstellen (optional)
-   python -m venv venv
+Ein-Button-Runner: Schwerkraft umkehren, Stacheln ausweichen, Münzen mitnehmen. In der Luft einmal umlenken.
 
-   # Aktivieren
-   # Windows
-   .\venv\Scripts\activate
-   # macOS/Linux
-   source venv/bin/activate
+Dazu: Shop (Skins/Items), Graze-Bonus, Combos, Schild, Magnet. Grüne Uhr = Zeitlupe, rote Uhr = Chaos.
 
-   # Notwendige Pakete installieren
-   pip install -r requirements.txt
-   ```
+## Branch / Live
 
-3. **Spiel starten**  
-   ```bash
-   python main.py
-   ```
+Browser-Build auf `main2_browser`. Live: https://run-it.m07.dev/
 
-
-
-https://github.com/user-attachments/assets/6fc3348e-7166-4d98-9f51-afe984b73e16
-
-
-
-https://github.com/user-attachments/assets/d847050a-d423-48e5-b1af-6f40355375e7
-
+`src/main.py` bleibt als Pygame-Referenz.

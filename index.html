@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#87cefa" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <title>Run-It</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=block"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <div id="frame">
+        <div id="stage">
+          <canvas id="game" width="500" height="800"></canvas>
+          <div id="play-hit" class="hidden"></div>
+
+          <div id="hud" class="hidden">
+            <div id="hud-bar">
+              <p id="hud-score">0</p>
+              <p id="hud-coins">0C</p>
+              <p id="hud-fx" class="hidden"></p>
+              <div id="bag">
+                <button id="use-shield" class="bag-btn hidden" type="button">S</button>
+                <button id="use-chrono" class="bag-btn hidden" type="button">T</button>
+                <button id="use-magnet" class="bag-btn hidden" type="button">M</button>
+              </div>
+              <button id="btn-pause" type="button" aria-label="Pause">II</button>
+            </div>
+          </div>
+
+          <section id="screen-boot" class="overlay">
+            <div class="panel">
+              <p class="stat">...</p>
+            </div>
+          </section>
+
+          <section id="screen-menu" class="overlay hidden">
+            <button id="btn-play" class="text-btn go-btn" type="button">START</button>
+            <div class="menu-row">
+              <button id="btn-shop" class="text-btn" type="button">SHOP</button>
+              <button id="btn-how" class="text-btn" type="button">HOW</button>
+            </div>
+            <input
+              id="pilot-name"
+              class="name-input"
+              maxlength="12"
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="Name"
+            />
+            <p id="menu-stats" class="chip">0 · BEST 0</p>
+          </section>
+
+          <section id="screen-shop" class="overlay shop-screen hidden">
+            <header class="shop-head">
+              <p class="shop-title">SHOP</p>
+              <p id="shop-bank">0</p>
+            </header>
+            <div class="shop-tabs" role="tablist">
+              <button id="tab-skins" class="shop-tab on" type="button">SKIN</button>
+              <button id="tab-items" class="shop-tab" type="button">ITEM</button>
+              <button id="tab-keep" class="shop-tab" type="button">KEEP</button>
+            </div>
+            <div id="pane-skins" class="shop-pane">
+              <p class="shop-hint">TAP TO WEAR</p>
+              <div id="shop-skins" class="grid"></div>
+            </div>
+            <div id="pane-items" class="shop-pane hidden">
+              <p class="shop-hint">BUY HERE · TAP S T M IN RUN</p>
+              <div id="shop-boosts" class="list"></div>
+            </div>
+            <div id="pane-keep" class="shop-pane hidden">
+              <p class="shop-hint">ONCE · STAYS ON</p>
+              <div id="shop-upgrades" class="list"></div>
+            </div>
+            <button id="shop-back" class="text-btn" type="button">BACK</button>
+          </section>
+
+          <section id="screen-how" class="overlay hidden">
+            <div class="panel">
+              <p class="how-txt">
+                TAP / SPACE FLIPS<br /><br />
+                SHOP = BUY<br />
+                S T M = USE IN RUN<br /><br />
+                COINS GOOD<br />
+                SPIKES BAD
+              </p>
+            </div>
+            <button id="how-back" class="text-btn" type="button">OK</button>
+          </section>
+
+          <section id="screen-pause" class="overlay hidden">
+            <div class="panel">
+              <p class="title">PAUSE</p>
+            </div>
+            <button id="pause-resume" class="text-btn go-btn" type="button">START</button>
+            <button id="pause-quit" class="text-btn" type="button">MENU</button>
+          </section>
+
+          <section id="screen-over" class="overlay hidden">
+            <div class="panel">
+              <p id="over-flag" class="title">GAME OVER</p>
+              <p id="over-score" class="score">0</p>
+              <p id="over-best" class="gold">BEST 0</p>
+              <p id="over-meta" class="stat">0 COINS</p>
+            </div>
+            <button id="over-retry" class="text-btn go-btn" type="button">START</button>
+            <div class="menu-row">
+              <button id="over-shop" class="text-btn" type="button">SHOP</button>
+              <button id="over-menu" class="text-btn" type="button">MENU</button>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div id="rotate">
+        <p>ROTATE</p>
+      </div>
+    </div>
+    <script type="module" src="/src/web/main.ts"></script>
+  </body>
+</html>

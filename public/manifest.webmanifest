@@ -1,0 +1,17 @@
+{
+  "name": "Run-It",
+  "short_name": "Run-It",
+  "description": "8-Bit Gravity-Flip Runner",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#87cefa",
+  "theme_color": "#87cefa",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
