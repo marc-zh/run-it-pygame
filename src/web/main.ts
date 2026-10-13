@@ -176,6 +176,10 @@ async function boot(): Promise<void> {
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) pauseRun();
   });
+  // Turning the phone sideways hides the stage behind the ROTATE note; don't keep running.
+  window.addEventListener("resize", () => {
+    if (frame.clientWidth === 0) pauseRun();
+  });
   const useFromBag = (id: BoostId, e: Event) => {
     e.preventDefault();
     e.stopPropagation();

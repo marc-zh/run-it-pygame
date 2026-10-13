@@ -397,6 +397,8 @@ export class Game {
   private applySlow(seconds: number): void {
     this.slowLeft = seconds;
     this.fastLeft = 0;
+    // A reset queued by an earlier clock must not cancel this one on landing.
+    this.pendingReset = false;
     this.moveBase = BASE_MOVE * 0.5;
     this.accel = BASE_ACCEL * 0.4;
   }
@@ -404,6 +406,7 @@ export class Game {
   private applyFast(seconds: number): void {
     this.fastLeft = seconds;
     this.slowLeft = 0;
+    this.pendingReset = false;
     this.moveBase = BASE_MOVE * 1.8;
     this.accel = BASE_ACCEL * 2.5;
   }
