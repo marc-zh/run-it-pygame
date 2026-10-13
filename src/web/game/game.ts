@@ -54,6 +54,14 @@ type Particle = { x: number; y: number; vx: number; vy: number; life: number; co
 type Floater = { x: number; y: number; text: string; life: number; color: string };
 type Cloud = { x: number; y: number; w: number; h: number };
 
+// Spike hitbox as three stacked boxes (fractions of the sprite) that follow the
+// triangle, so the empty corners next to the tip no longer count as a hit.
+const SPIKE_PARTS: Array<[number, number, number, number]> = [
+  [0.36, 0.06, 0.28, 0.22],
+  [0.26, 0.25, 0.48, 0.25],
+  [0.12, 0.5, 0.76, 0.38],
+];
+
 const PATTERNS: Pattern[] = [
   "single_top",
   "single_bottom",
@@ -666,9 +674,9 @@ export class Game {
     const sh = this.sprites.spike.height;
 
     for (const s of this.spikes) {
-      const sx = s.x + sw * 0.12;
-      const sy = s.y + sh * 0.12;
-      const hit = overlap(px, py, pw, ph, sx, sy, sw * 0.76, sh * 0.76);
+      const hit = SPIKE_PARTS.some(([x, y, w, h]) =>
+        overlap(px, py, pw, ph, s.x + x * sw, s.y + (s.up ? 1 - y - h : y) * sh, w * sw, h * sh),
+      );
       if (hit && this.iframe <= 0) {
         if (this.shields > 0) {
           this.shields -= 1;

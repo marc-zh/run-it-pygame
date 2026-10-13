@@ -31,6 +31,10 @@ let save = loadSave();
 const audio = new AudioBus();
 audio.muted = save.muted;
 let howThenPlay = false;
+let overAt = 0;
+// Taps and Space presses that were meant as flips must not skip the game-over screen.
+const OVER_LOCK_MS = 600;
+const overLocked = () => performance.now() - overAt < OVER_LOCK_MS;
 
 function show(name: keyof typeof screens | null): void {
   for (const key of Object.keys(screens) as Array<keyof typeof screens>) {
@@ -60,7 +64,11 @@ function persist(): void {
 }
 
 async function boot(): Promise<void> {
-  await Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 1500))]);
+  // The canvas draws floaters in the pixel font, so make sure it is loaded, not just declared.
+  await Promise.race([
+    document.fonts.load('16px "Press Start 2P"').then(() => document.fonts.ready),
+    new Promise((r) => setTimeout(r, 1500)),
+  ]);
   const layout = () => layoutStage(frame, stage);
   layout();
   window.addEventListener("resize", layout);
@@ -95,6 +103,7 @@ async function boot(): Promise<void> {
       paintBag(h.bag);
     },
     onOver: (snap) => {
+      overAt = performance.now();
       setPlayUi(false);
       paintOver(snap);
       show("over");
@@ -154,11 +163,18 @@ async function boot(): Promise<void> {
     }
     show("menu");
   });
-  $("btn-pause").addEventListener("click", (e) => {
-    e.stopPropagation();
+  const pauseRun = () => {
+    if (game.mode !== "play") return;
     game.pause();
     setPlayUi(false);
     show("pause");
+  };
+  $("btn-pause").addEventListener("click", (e) => {
+    e.stopPropagation();
+    pauseRun();
+  });
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) pauseRun();
   });
   const useFromBag = (id: BoostId, e: Event) => {
     e.preventDefault();
@@ -178,13 +194,21 @@ async function boot(): Promise<void> {
     setPlayUi(false);
     show("menu");
   });
-  $("over-retry").addEventListener("click", () => begin(game));
+  $("over-retry").addEventListener("click", () => {
+    if (!overLocked()) begin(game);
+  });
   $("over-shop").addEventListener("click", () => {
+    if (overLocked()) return;
+    game.abortToIdle();
     renderShop(game, sprites);
     showShopTab("skins");
     show("shop");
   });
-  $("over-menu").addEventListener("click", () => show("menu"));
+  $("over-menu").addEventListener("click", () => {
+    if (overLocked()) return;
+    game.abortToIdle();
+    show("menu");
+  });
 
   const tapFlip = (e: Event) => {
     e.preventDefault();
@@ -221,7 +245,7 @@ async function boot(): Promise<void> {
       return;
     }
     if (!screens.over.classList.contains("hidden")) {
-      begin(game);
+      if (!overLocked()) begin(game);
       return;
     }
     if (!screens.pause.classList.contains("hidden")) {
@@ -260,7 +284,7 @@ function paintOver(snap: OverSnap): void {
   $("over-flag").textContent = snap.personalBest ? "NEW BEST" : "GAME OVER";
   $("over-score").textContent = String(snap.score);
   $("over-best").textContent = `BEST ${snap.best}`;
-  $("over-meta").textContent = `${snap.coins} COINS  ${snap.time.toFixed(1)}S`;
+  $("over-meta").textContent = `${snap.coins} ${snap.coins === 1 ? "COIN" : "COINS"}  ${snap.time.toFixed(1)}S`;
 }
 
 function renderShop(game: Game, sprites: Awaited<ReturnType<typeof loadSprites>>): void {
