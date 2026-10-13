@@ -1,3 +1,12 @@
+/* Self-hosted so no visitor request goes to Google. SIL OFL 1.1, see public/fonts/PressStart2P-OFL.txt */
+@font-face {
+  font-family: "Press Start 2P";
+  src: url("/fonts/PressStart2P-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
 :root {
   --sky: #87cefa;
   --gold: #e8c030;
