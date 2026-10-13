@@ -62,7 +62,11 @@ export function loadSave(): SaveData {
 }
 
 export function writeSave(save: SaveData): void {
-  localStorage.setItem(KEY, JSON.stringify(save));
+  try {
+    localStorage.setItem(KEY, JSON.stringify(save));
+  } catch {
+    /* Storage full or blocked (private mode): the run must still end cleanly */
+  }
 }
 
 export function pushScore(save: SaveData, row: ScoreRow): SaveData {

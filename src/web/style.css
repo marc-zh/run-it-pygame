@@ -1,3 +1,12 @@
+/* Self-hosted so no visitor request goes to Google. SIL OFL 1.1, see public/fonts/PressStart2P-OFL.txt */
+@font-face {
+  font-family: "Press Start 2P";
+  src: url("/fonts/PressStart2P-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
 :root {
   --sky: #87cefa;
   --gold: #e8c030;
@@ -36,9 +45,12 @@ body {
 }
 
 #frame {
+  /* Room left inside the safe-area padding of #app (notch, home bar, rounded corners). */
+  --free-w: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right));
+  --free-h: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
   position: relative;
-  width: min(100vw, calc(100dvh * 500 / 800));
-  height: min(100dvh, calc(100vw * 800 / 500));
+  width: min(var(--free-w), calc(var(--free-h) * 500 / 800));
+  height: min(var(--free-h), calc(var(--free-w) * 800 / 500));
   overflow: hidden;
   background: #000;
 }
@@ -84,10 +96,11 @@ body {
 
 #hud-bar {
   position: absolute;
-  top: 0;
+  /* Sit on the grass strip (12-42px) instead of across its black top edge. */
+  top: 12px;
   left: 0;
   right: 0;
-  height: 42px;
+  height: 30px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -143,6 +156,23 @@ body {
   font-smooth: never;
   -webkit-font-smoothing: none;
   cursor: pointer;
+}
+
+/* The HUD buttons are drawn small on purpose; give fingers a bigger invisible target. */
+#btn-pause,
+.bag-btn {
+  position: relative;
+}
+
+#btn-pause::after,
+.bag-btn::after {
+  content: "";
+  position: absolute;
+  inset: -12px -3px;
+}
+
+#btn-pause::after {
+  inset: -12px -12px -12px -6px;
 }
 
 .bag-btn:disabled {
